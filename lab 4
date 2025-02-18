@@ -1,0 +1,331 @@
+{
+  "nbformat": 4,
+  "nbformat_minor": 0,
+  "metadata": {
+    "colab": {
+      "provenance": [],
+      "authorship_tag": "ABX9TyPE2km1i9XIwTonIH4mt7Uk",
+      "include_colab_link": true
+    },
+    "kernelspec": {
+      "name": "python3",
+      "display_name": "Python 3"
+    },
+    "language_info": {
+      "name": "python"
+    }
+  },
+  "cells": [
+    {
+      "cell_type": "markdown",
+      "metadata": {
+        "id": "view-in-github",
+        "colab_type": "text"
+      },
+      "source": [
+        "<a href=\"https://colab.research.google.com/github/arlan-kbtu/ads/blob/master/lab%204\" target=\"_parent\"><img src=\"https://colab.research.google.com/assets/colab-badge.svg\" alt=\"Open In Colab\"/></a>"
+      ]
+    },
+    {
+      "cell_type": "markdown",
+      "source": [
+        "JSON"
+      ],
+      "metadata": {
+        "id": "c65PIMIC36VJ"
+      }
+    },
+    {
+      "cell_type": "code",
+      "source": [
+        "import json\n",
+        "\n",
+        "# Load the JSON data from the file\n",
+        "with open('sample-data.json', 'r') as file:\n",
+        "    data = json.load(file)\n",
+        "\n",
+        "# Print the header\n",
+        "print(\"Interface Status\")\n",
+        "print(\"---\")\n",
+        "print(\"DN\\t\\t\\tDescription\\tSpeed\")\n",
+        "print(\"---\")\n",
+        "\n",
+        "# Iterate through the interfaces and print the required information\n",
+        "for interface in data['imdata']:\n",
+        "    attributes = interface['l1PhysIf']['attributes']\n",
+        "    dn = attributes['dn']\n",
+        "    description = attributes.get('descr', '')  # Use empty string if description is not available\n",
+        "    speed = attributes.get('speed', 'inherit')  # Default to 'inherit' if speed is not specified\n",
+        "    print(f\"{dn}\\t{description}\\t{speed}\")"
+      ],
+      "metadata": {
+        "id": "NuAEiMB834o0"
+      },
+      "execution_count": null,
+      "outputs": []
+    },
+    {
+      "cell_type": "markdown",
+      "source": [
+        "task 2"
+      ],
+      "metadata": {
+        "id": "Fvjvy0gf4DwS"
+      }
+    },
+    {
+      "cell_type": "code",
+      "source": [
+        "from datetime import datetime, timedelta\n",
+        "\n",
+        "current_date = datetime.today()\n",
+        "new_date = current_date - timedelta(days=5)\n",
+        "print(\"Current Date:\", current_date.strftime('%Y-%m-%d'))\n",
+        "print(\"Date 5 Days Ago:\", new_date.strftime('%Y-%m-%d'))"
+      ],
+      "metadata": {
+        "colab": {
+          "base_uri": "https://localhost:8080/"
+        },
+        "id": "bEUR6Qec38QR",
+        "outputId": "1a56b404-8ae2-40f7-e35d-17180199f8de"
+      },
+      "execution_count": 2,
+      "outputs": [
+        {
+          "output_type": "stream",
+          "name": "stdout",
+          "text": [
+            "Current Date: 2025-02-18\n",
+            "Date 5 Days Ago: 2025-02-13\n"
+          ]
+        }
+      ]
+    },
+    {
+      "cell_type": "markdown",
+      "source": [
+        "task 3"
+      ],
+      "metadata": {
+        "id": "pIyz2UMk4QQU"
+      }
+    },
+    {
+      "cell_type": "code",
+      "source": [
+        "from datetime import datetime, timedelta\n",
+        "\n",
+        "today = datetime.today()\n",
+        "yesterday = today - timedelta(days=1)\n",
+        "tomorrow = today + timedelta(days=1)\n",
+        "\n",
+        "print(\"Yesterday:\", yesterday.strftime('%Y-%m-%d'))\n",
+        "print(\"Today:\", today.strftime('%Y-%m-%d'))\n",
+        "print(\"Tomorrow:\", tomorrow.strftime('%Y-%m-%d'))"
+      ],
+      "metadata": {
+        "colab": {
+          "base_uri": "https://localhost:8080/"
+        },
+        "id": "Wmdpb6vv4Ce9",
+        "outputId": "be604043-bbfb-437c-a438-5f0341a1eeb8"
+      },
+      "execution_count": 6,
+      "outputs": [
+        {
+          "output_type": "stream",
+          "name": "stdout",
+          "text": [
+            "Yesterday: 2025-02-17\n",
+            "Today: 2025-02-18\n",
+            "Tomorrow: 2025-02-19\n"
+          ]
+        }
+      ]
+    },
+    {
+      "cell_type": "markdown",
+      "source": [
+        "3.1"
+      ],
+      "metadata": {
+        "id": "T1YBc20p4jFO"
+      }
+    },
+    {
+      "cell_type": "code",
+      "source": [
+        "def square_generetor(n):\n",
+        "    for i in range(n+1):\n",
+        "        yield i * i\n",
+        "\n",
+        "def even_numbers(n):\n",
+        "    for i in range(0, n + 1, 2):\n",
+        "        yield str(i)\n",
+        "\n",
+        "def divisible_by_3_and_4(n):\n",
+        "    for i in range(n + 1):\n",
+        "        if i % 3 == 0 and i % 4 == 0:\n",
+        "            yield i\n",
+        "\n",
+        "def squares(a, b):\n",
+        "    for i in range(a, b + 1):\n",
+        "        yield i * i\n",
+        "\n",
+        "a, b = 3, 7\n",
+        "for square in squares(a, b):\n",
+        "    print(square)\n",
+        "\n",
+        "def countdown(n):\n",
+        "    for i in range(n, -1, -1):\n",
+        "        yield i"
+      ],
+      "metadata": {
+        "colab": {
+          "base_uri": "https://localhost:8080/"
+        },
+        "id": "wDw9NAWu4L_E",
+        "outputId": "58421932-7d72-45ec-f604-3e226f8d8653"
+      },
+      "execution_count": 7,
+      "outputs": [
+        {
+          "output_type": "stream",
+          "name": "stdout",
+          "text": [
+            "9\n",
+            "16\n",
+            "25\n",
+            "36\n",
+            "49\n"
+          ]
+        }
+      ]
+    },
+    {
+      "cell_type": "markdown",
+      "source": [
+        "task 4"
+      ],
+      "metadata": {
+        "id": "mfScCUfd4oQv"
+      }
+    },
+    {
+      "cell_type": "code",
+      "source": [
+        "from datetime import datetime\n",
+        "\n",
+        "now = datetime.now()\n",
+        "now_without_microseconds = now.replace(microsecond=0)\n",
+        "\n",
+        "print(\"With Microseconds:\", now)\n",
+        "print(\"Without Microseconds:\", now_without_microseconds)"
+      ],
+      "metadata": {
+        "colab": {
+          "base_uri": "https://localhost:8080/"
+        },
+        "id": "wQYnVR_S4d7R",
+        "outputId": "7c71eccf-64d6-4a6c-b407-42bae33a5205"
+      },
+      "execution_count": 8,
+      "outputs": [
+        {
+          "output_type": "stream",
+          "name": "stdout",
+          "text": [
+            "With Microseconds: 2025-02-18 16:27:06.460123\n",
+            "Without Microseconds: 2025-02-18 16:27:06\n"
+          ]
+        }
+      ]
+    },
+    {
+      "cell_type": "markdown",
+      "source": [
+        "4.1\n"
+      ],
+      "metadata": {
+        "id": "77_dpoJt48k6"
+      }
+    },
+    {
+      "cell_type": "code",
+      "source": [
+        "import math\n",
+        "\n",
+        "def degrees_to_radians(degrees):\n",
+        "    return degrees * (math.pi / 180)\n",
+        "\n",
+        "degrees = float(input(\"Input degree: \"))\n",
+        "radians = degrees_to_radians(degrees)\n",
+        "print(f\"Output radian: {radians:.6f}\")\n",
+        "\n",
+        "def trapezoid_area(base1, base2, height):\n",
+        "    return 0.5 * (base1 + base2) * height\n",
+        "height = float(input(\"Height: \"))\n",
+        "base1 = float(input(\"Base, first value: \"))\n",
+        "base2 = float(input(\"Base, second value: \"))\n",
+        "area = trapezoid_area(base1, base2, height)\n",
+        "print(f\"Expected Output: {area:.1f}\")\n",
+        "\n",
+        "def regular_polygon_area(n, s):\n",
+        "    return (n * s ** 2) / (4 * math.tan(math.pi / n))\n",
+        "n = int(input(\"Input number of sides: \"))\n",
+        "s = float(input(\"Input the length of a side: \"))\n",
+        "area = regular_polygon_area(n, s)\n",
+        "print(f\"The area of the polygon is: {area:.1f}\")\n",
+        "\n",
+        "def area_polygon(length, heigh):\n",
+        "    return length * heigh\n",
+        "length=int(input(\"Length of base: \"))\n",
+        "heigh=int(input(\"Height of parallelogram: \"))\n",
+        "area= area_polygon(length, heigh)\n",
+        "print(f\"Expected Output: {area:.1f}\")"
+      ],
+      "metadata": {
+        "id": "lsVup01i4nJS"
+      },
+      "execution_count": null,
+      "outputs": []
+    },
+    {
+      "cell_type": "markdown",
+      "source": [
+        "5"
+      ],
+      "metadata": {
+        "id": "NSnUgSR15O2m"
+      }
+    },
+    {
+      "cell_type": "code",
+      "source": [
+        "from datetime import datetime\n",
+        "\n",
+        "date1 = datetime(2024, 2, 1, 12, 0, 0)\n",
+        "date2 = datetime(2024, 2, 10, 14, 30, 0)\n",
+        "\n",
+        "difference = abs((date2 - date1).total_seconds())\n",
+        "\n",
+        "print(\"Difference in seconds:\", difference)"
+      ],
+      "metadata": {
+        "id": "8gAk5L80440q"
+      },
+      "execution_count": null,
+      "outputs": []
+    },
+    {
+      "cell_type": "code",
+      "source": [],
+      "metadata": {
+        "id": "BeFyME205OE_"
+      },
+      "execution_count": null,
+      "outputs": []
+    }
+  ]
+}
